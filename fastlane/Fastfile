@@ -1,0 +1,14 @@
+default_platform(:ios)
+
+platform :ios do
+  lane :build do
+    # Placeholder: configure match, sigh, gym etc.
+    gym(scheme: "Runner")
+  end
+end
+
+platform :android do
+  lane :build do
+    gradle(task: "assembleRelease")
+  end
+end

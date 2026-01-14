@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/dart-lang/format
+    rev: 2.0.0
+    hooks:
+      - id: dart-format
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.0.0
+    hooks:
+      - id: eslint

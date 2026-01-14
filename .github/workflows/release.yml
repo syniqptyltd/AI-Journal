@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+      - run: flutter pub get
+      - run: flutter build apk --release
+      - run: flutter build ipa --export-options-plist=ios/ExportOptions.plist
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/ios/ipa/*.ipa

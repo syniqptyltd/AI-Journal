@@ -1,0 +1,31 @@
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.packages
+.pub-cache/
+build/
+ios/Pods/
+**/Generated.xcconfig
+**/Flutter/Flutter.framework
+**/.flutter-plugins-deps
+
+# Environment files
+.env
+.env.*
+
+# Mac/Windows
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# Local credentials
+*.keystore
+*.jks

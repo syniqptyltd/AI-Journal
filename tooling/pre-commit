@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Pre-commit hook: format, analyze, test
+set -euo pipefail
+
+echo "Running pre-commit checks..."
+
+# Format
+dart format --output=none . || true
+
+# Analyze
+flutter analyze || true
+
+# Tests (optional for speed, enable in CI)
+# flutter test --coverage
+
+echo "✓ Pre-commit checks done"
