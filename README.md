@@ -1,107 +1,192 @@
-# Mobile Cross-platform App
+# Mindful Path
 
-Production-ready scaffold using Flutter for iOS and Android.
+An AI-powered journaling and wellbeing app for mindful living. Built with Flutter for iOS and Android.
 
 ## Overview
 
-This workspace uses Flutter (stable) to maintain a single codebase for iOS and Android with a clean, modular architecture and CI/CD readiness.
+Mindful Path combines traditional journaling with AI-driven insights to help users reflect, understand patterns, and take small actions to feel better. The AI acts as a supportive guide, never a therapist.
 
-## Getting started
+## Features
 
-Prerequisites:
+### Journal
+- Create, edit, and delete daily journal entries
+- Timestamped entries with optional mood selection
+- AI-powered theme detection and gentle insights
+- Free-text writing with a calm, distraction-free interface
+
+### To-Do List
+- Create and manage tasks
+- AI-suggested tasks based on journal content
+- Tasks can be linked to journal entries
+- Priority levels and completion tracking
+
+### AI Integration
+- Analyzes journal entries for themes (stress, motivation, fatigue, etc.)
+- Generates supportive, non-judgmental insights
+- Suggests actionable items and breathing exercises
+- Never provides medical or diagnostic advice
+
+### Breathing & Grounding Exercises
+- Guided breathing exercises (4-4-6, box breathing, 4-7-8)
+- Beautiful animations and timers
+- 5-4-3-2-1 grounding exercise
+- AI can suggest exercises based on mood
+
+### Insights Dashboard
+- Weekly mood distribution
+- Theme tracking over time
+- Journaling streaks
+- AI-generated weekly reflections
+
+## Getting Started
+
+### Prerequisites
 - Flutter SDK (>=3.0)
 - Xcode (for iOS builds)
 - Android SDK & Android Studio (for Android builds)
+
+### Installation
 
 1. Install dependencies
 ```bash
 flutter pub get
 ```
 
-2. Run app
+2. Configure environment
+```bash
+cp .env.example .env.development
+```
+
+Edit `.env.development` with your settings:
+```
+AI_API_BASE_URL=https://api.openai.com/v1
+AI_API_KEY=your-api-key-here
+AI_MODEL=gpt-4o-mini
+```
+
+3. Run the app
 ```bash
 flutter run
 ```
 
-3. Run tests
+### Running Tests
 ```bash
 flutter test
 ```
 
-4. Lint & format
+### Build for Production
+
+**Android:**
 ```bash
-dart analyze
-dart format .
+flutter build apk --release
 ```
-## Environments
-Three environments are prepared: `development`, `staging`, `production`.
-Use `.env.development`, `.env.staging`, `.env.production` locally (not checked into git).
 
-CI systems should inject secrets via secure variables.
+**iOS:**
+```bash
+flutter build ipa
+```
 
-Configuration is managed in `lib/core/config/app_config.dart`.
-
-## CI/CD
-- GitHub Actions for build and tests
-- Fastlane configured for iOS and Android lane stubs
-
-## Hooks & Quality
-Pre-commit hooks are configured to run format, analyze and tests. Use Husky or `pre-commit` to install locally (see `.gitattributes` and project scripts).
-
-## Scripts
-- `scripts/build_android.sh` - build Android APK
-- `scripts/build_ios.sh` - build iOS IPA
-
-## Environments & Secrets
-- Never commit `.env` files with real secrets. Use CI/CD secure variables or platform secret stores.
-- Example env file: `.env.example`
-
-> Tip: For production secrets use your CI secret store and platform keychain (Google Play/App Store Connect). Keep only non-sensitive config in `.env` files.
-## Project structure
-- `lib/` - app source
-- `test/` - tests
-- `ios/`, `android/` - native platforms
-
-## Scripts
-- `scripts/build_ios.sh` - iOS build (CI-friendly)
-- `scripts/build_android.sh` - Android build (CI-friendly)
-
-## Notes
-This is an initial scaffold. Add your features, auth, API integration, and notifications as needed.
-
-## Architecture Overview
+## Architecture
 
 ```
 lib/
-├── core/          # Shared: widgets, config, app setup
-├── features/      # Feature modules (example/)
-│   └── example/
-│       ├── presentation/  (UI/screens)
-│       ├── domain/        (business logic, repositories)
-│       └── data/          (API/data sources)
-└── main.dart
-
-test/
-├── widget_test.dart       (example test)
-└── unit/                  (add unit tests)
-
-scripts/
-├── build_android.sh
-├── build_ios.sh
-└── (CI scripts)
-
-.github/workflows/
-├── ci.yml              (test, analyze, build)
-├── lint_format.yml     (pre-PR checks)
-├── release.yml         (tag-based releases)
-└── secret-scan.yml     (prevent secret leaks)
+├── core/
+│   ├── models/          # Data models (JournalEntry, TodoItem, Mood, etc.)
+│   ├── providers/       # Riverpod providers
+│   ├── services/        # Storage and AI services
+│   ├── theme/           # Colors, typography, spacing
+│   ├── widgets/         # Shared UI components
+│   └── navigation/      # App routing
+├── features/
+│   ├── home/            # Home screen with today overview
+│   ├── journal/         # Journal feature
+│   ├── todos/           # To-do list feature
+│   ├── breathing/       # Breathing exercises
+│   └── insights/        # AI insights dashboard
+└── main.dart            # App entry point
 ```
 
-## Next Steps
-1. Clone/fork this repo
-2. Add authentication (Firebase, custom)
-3. Implement API client (http, dio)
-4. Build features
-5. Add push notifications (Firebase Cloud Messaging)
-6. Configure code signing & provisioning profiles
-7. Set up App Store Connect & Google Play Console secrets in CI
+### Key Technologies
+- **Flutter** - Cross-platform UI framework
+- **Riverpod** - State management
+- **Hive** - Local-first data storage
+- **go_router** - Navigation
+- **flutter_animate** - Smooth animations
+
+## AI Configuration
+
+The app supports any OpenAI-compatible API. Configure in `.env.development`:
+
+```env
+AI_API_BASE_URL=https://api.openai.com/v1
+AI_API_KEY=your-key-here
+AI_MODEL=gpt-4o-mini
+```
+
+The AI service uses carefully crafted prompts to ensure:
+- Supportive, non-judgmental language
+- No medical or diagnostic advice
+- Focus on gentle observations and small actions
+- Encouragement of self-compassion
+
+## Data & Privacy
+
+- All journal data is stored locally using Hive
+- AI requests only send necessary text for analysis
+- No data is shared with third parties
+- Prepared for future encryption support
+
+## Design Philosophy
+
+- **Calm & Minimal** - Soft colors, smooth transitions, no clutter
+- **Emotionally Safe** - Supportive language throughout
+- **Local-First** - Your data stays on your device
+- **Progressive AI** - Works without AI, enhanced with it
+
+## Color Palette
+
+The app uses calming, accessible colors:
+- Primary: Sage Green (#7BA38E)
+- Secondary: Lavender (#B4A7D6)
+- Background: Warm White (#F8F6F4)
+- Mood colors are soft and non-jarring
+
+## Extending the App
+
+The modular architecture makes it easy to add:
+- Push notifications for journaling reminders
+- Streak tracking and achievements
+- Cloud sync (Firebase, custom backend)
+- Additional breathing exercises
+- Meditation timers
+- Export functionality
+
+## Environment Configuration
+
+Three environments are supported:
+- `development` - Local development
+- `staging` - Testing builds
+- `production` - Release builds
+
+Use `.env.development`, `.env.staging`, `.env.production` locally.
+CI systems should inject secrets via secure variables.
+
+## CI/CD
+
+- GitHub Actions for automated builds and tests
+- Fastlane configured for iOS and Android
+- Secret scanning to prevent credential leaks
+- Pre-commit hooks for code quality
+
+## Scripts
+
+- `scripts/build_android.sh` - Build Android APK
+- `scripts/build_ios.sh` - Build iOS IPA
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+See [LICENSE](LICENSE) for details.

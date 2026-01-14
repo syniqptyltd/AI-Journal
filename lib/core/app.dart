@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import '../features/example/presentation/screens/example_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'theme/app_theme.dart';
+import 'navigation/app_router.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+/// Main application widget
+class MindfulPathApp extends StatelessWidget {
+  const MindfulPathApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mobile Cross-Platform App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const ExampleScreen(),
-      // TODO: Replace with Splash -> Auth -> Home navigation flow
-      // Example of modular navigation and feature-based routing
+    return MaterialApp.router(
+      title: 'Mindful Path',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      routerConfig: AppRouter.router,
     );
   }
 }

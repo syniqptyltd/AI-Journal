@@ -1,7 +1,8 @@
-// Example of basic dependency injection setup
-// Expand this to provide repositories, use cases, and widgets
+// Legacy service locator - kept for compatibility
+// New code should use Riverpod providers from core/providers/providers.dart
 
-import '../features/example/domain/example_usecase.dart';
+import 'services/storage_service.dart';
+import 'services/ai_service.dart';
 
 class ServiceLocator {
   static final ServiceLocator _instance = ServiceLocator._internal();
@@ -12,17 +13,13 @@ class ServiceLocator {
 
   ServiceLocator._internal();
 
-  late ExampleUseCase exampleUseCase;
+  late StorageService storageService;
+  late AIService aiService;
 
-  void setup() {
-    // Register repositories
-    // exampleRepository = ExampleRepositoryImpl();
-
-    // Register use cases
-    exampleUseCase = ExampleUseCase();
-
-    // Register services
-    // apiService = ApiService();
+  Future<void> setup() async {
+    storageService = StorageService();
+    aiService = AIService();
+    await storageService.initialize();
   }
 }
 

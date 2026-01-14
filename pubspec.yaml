@@ -1,25 +1,56 @@
-name: mobile_crossplatform_app
-description: A production-ready cross-platform Flutter app scaffold.
-version: 0.1.0+1
+name: mindful_path
+description: An AI-powered journaling and wellbeing app for mindful living.
+version: 1.0.0+1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_dotenv: ^5.0.2
-  provider: ^6.0.0
-  flutter_native_splash: ^2.2.18
-  flutter_launcher_icons: ^0.10.0
+
+  # State management
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
+
+  # Local storage
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # Navigation
+  go_router: ^13.0.0
+
+  # Utilities
+  uuid: ^4.2.2
+  intl: ^0.19.0
+  flutter_dotenv: ^5.1.0
+
+  # HTTP client for AI API
+  http: ^1.1.2
+
+  # Animations
+  flutter_animate: ^4.3.0
+  lottie: ^2.7.0
+
+  # UI enhancements
+  flutter_svg: ^2.0.9
+  google_fonts: ^6.1.0
+
+  # Security
+  flutter_secure_storage: ^9.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  mockito: ^5.0.17
+  flutter_lints: ^3.0.1
+  build_runner: ^2.4.8
+  hive_generator: ^2.0.1
+  riverpod_generator: ^2.3.9
+  mockito: ^5.4.4
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/animations/
+    - .env.development
